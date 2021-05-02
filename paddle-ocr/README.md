@@ -60,6 +60,12 @@ print(res.json())
 
 # Notes and remarks
 
+PaddleOCR seems to work really well on structured fonts, like those you'd see in printed imagery, but does not seem to work particularly well on handwriting.
+This might just be due to my handwriting being somewhat messy.
+
+Additionally, while I tried out the suggested English models, the response seemed to indicate that it perceived the inputs as Chinese.
+So I'd suggest just sticking with the default server/mobile models, since they seem to be adequate for *both* languages, and apparently others as well.
+
 ## Building the containers
 
 They [provide some starter code] to get PaddleOCR running in a container, but I had to modify the Dockerfiles to get everything working.
@@ -71,6 +77,12 @@ Building the images can be done via specifying which models (and parameters) to 
 The 2.0 versions, which the starter code is based off of, are pretty recondite as far as containers go, and although I'm not a Docker expert, I feel like they could be streamlined somewhat.
 It seems like it starts with a standard NVIDIA container but then kinda goes off into the weeds, and at the end it installs a bunch of Python wheels of strange provenance for multiple versions of Python; I don't know what's going on there.
 They're also using an older version of CUDA and CuDNN, so I'm trying to get the 2.1 version working, since they've apparently added a bunch of new models.
+Or at least new parameters for old ones--it seems like the actual models that get downloaded are still the v2.0 ones.
+
+In any event, this doesn't seem to be straightforward, since I tried using a newer version of Python only to discover that `paddleocr` is pinned to an older version of `numpy`, so at this point I'd rather just test  out a different OCR system rather than trying to eke out possible performance improvements here.
+
+
+
 
 # Reference
 

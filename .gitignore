@@ -1,5 +1,6 @@
 # Model archives
 paddle-ocr/models/**/*.tar
+tmp/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
