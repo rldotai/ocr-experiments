@@ -43,7 +43,7 @@ import requests
 from PIL import Image
 
 # Load the image, save it to a buffer, and encode
-path = "/path/to/your/image.jpeg"
+path = "/path/to/your/image.jpeg" # replace this!
 imag = Image.open(path)
 buff = io.BytesIO()
 imag.save(buff, format="jpeg")

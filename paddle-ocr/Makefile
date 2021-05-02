@@ -1,8 +1,7 @@
-
-
-
-# wget function -- there's some certificate issue w/ the hosting server
-wget = wget --no-check-certificate
+# ==============================================================================
+# A Makefile for building and running PaddleOCR images.
+# https://github.com/rldotai/ocr-experiments/
+# ==============================================================================
 
 # The available models, current as of May 1st, 2021
 # https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.1/doc/doc_en/models_list_en.md
@@ -41,6 +40,10 @@ HOST_CH := https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch
 HOST_EN := https://paddleocr.bj.bcebos.com/dygraph_v2.0/en
 # HOST_ML := https://paddleocr.bj.bcebos.com/dygraph_v2.0/multilingual
 
+# wget function -- there's some certificate issue w/ the hosting server
+wget = wget --no-check-certificate
+
+
 .phony: help
 help:
 	@echo "A Makefile for building containers for PaddleOCR."
@@ -52,7 +55,7 @@ help:
 # Rules for building the containers
 .PHONY: build-mobile-container-2.1
 build-mobile-container-2.1:
-	docker build . \
+	DOCKER_BUILDKIT=1 docker build . \
 		-t paddleocr:2.1-mobile-gpu \
 		-f docker/2.1/Dockerfile
 
@@ -67,6 +70,7 @@ build-mobile-container-2.0: mobile-inference-models
 		--build-arg REC_MODEL=${REC_MOBILE} \
 		--build-arg OCR_SYSTEM_PARAMS="params_mobile.py"
 
+
 .PHONY: build-server-container-2.0
 build-server-container-2.0: server-inference-models
 	docker build . \
@@ -77,10 +81,12 @@ build-server-container-2.0: server-inference-models
 		--build-arg REC_MODEL=${REC_SERVER} \
 		--build-arg OCR_SYSTEM_PARAMS="params_server.py"
 
+
 # Running the HubServing models
 .PHONY: run-mobile-container-2.0
 run-mobile-container-2.0:
 	docker run -it --rm -p 8866:8866 --gpus all --name paddle_ocr paddleocr:2.0-mobile-gpu
+
 
 .PHONY: run-server-container-2.0
 run-server-container-2.0:
@@ -92,23 +98,28 @@ run-server-container-2.0:
 server-inference-models: ${SERVER_MODEL_FILES}
 	@echo "Server models:" "$<"
 
+
 .PHONY: mobile-inference-models
 mobile-inference-models: ${MOBILE_MODEL_FILES}
 	@echo "Mobile models:" "$<"
 
+
 .PHONY: slim-inference-models
 slim-inference-models: ${SLIM_MODEL_FILES}
 	@echo "Slim models:" "$<"
+
 
 .PHONY: english-inference-models
 english-inference-models: $(addprefix models/, ${REC_MOBILE_EN})
 	@echo "English inference models present..."
 	@echo "$@" ":" "$<"
 
+
 # The actual download rules
 models/ch/%.tar:
 	@echo "Downloading model..."
 	$(wget) ${HOST_CH}/$(notdir $@) -O $@
+
 
 models/en/%.tar:
 	@echo "Downloading model..."
