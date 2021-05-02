@@ -58,9 +58,6 @@ help:
 	@echo "Try running:"
 	@echo "\t make build-mobile-container-2.0 && make run-mobile-container-2.0"
 
-# https://paddleocr.bj.bcebos.com/dygraph_v2.0/multilingual/en_ppocr_mobile_v2.0_det_infer.tar
-# https://paddleocr.bj.bcebos.com/dygraph_v2.0/multilingual/en_number_mobile_v2.0_rec_infer.tar
-# https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_cls_infer.tar
 
 .PHONY: build-mobile-container-2.0
 build-mobile-container-2.0: mobile-inference-models
