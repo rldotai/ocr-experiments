@@ -9,3 +9,4 @@ However, if that sounds like the sort of thing that might be useful to you, I've
 ## Functional
 
 - [PaddleOCR v2.0](./paddle-ocr)
+- [Clova AI Research's `CRAFT-PyTorch` and Deep Text Recognition Benchmark](./clova-ai)

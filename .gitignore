@@ -1,5 +1,7 @@
 # Model archives
 paddle-ocr/models/**/*.tar
+clova-ai/models/*
+handwriting-ocr/models/*
 tmp/*
 
 # Byte-compiled / optimized / DLL files
